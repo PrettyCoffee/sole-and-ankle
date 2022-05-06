@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { css } from 'styled-components/macro';
 
 import { COLORS, WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
@@ -33,7 +34,7 @@ const ShoeCard = ({
 
   return (
     <Link href={`/shoe/${slug}`}>
-      <Wrapper>
+      <Wrapper variant={variant}>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
         </ImageWrapper>
@@ -55,7 +56,43 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const variants = {
+  'on-sale': {
+    label: "Sale",
+    color: COLORS.primary,
+  },
+  'new-release': {
+    label: "Just Released!",
+    color: COLORS.secondary,
+  },
+}
+
+const getVariant = ({ variant }) => {
+  const style = variants[variant];
+  if (!style) return "";
+
+  return css`
+    position: relative;
+    ::after {
+      content: '${style.label}';
+      position: absolute;
+      top: 12px;
+      right: -4px;
+      padding: 8px;
+      
+      font-weight: 700;
+      font-size: 14px;
+      color: white;
+      background-color: ${style.color};
+      border-radius: 2px;
+    }
+    
+  `
+}
+
+const Wrapper = styled.article`
+  ${getVariant}
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
