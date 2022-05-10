@@ -18,10 +18,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  column-gap: 16px;
+  column-gap: 36px;
   row-gap: 62px;
   > a {
-    flex: 0 0 340px;
+    flex: 1 1 275px;
     img {
       width: 100%;
     }
